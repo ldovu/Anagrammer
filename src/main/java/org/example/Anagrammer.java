@@ -27,6 +27,13 @@ public class Anagrammer {
         }
     }
 
+    private static int factorial(int n) {
+        int result = 1;
+        for (int i = 2; i <= n; i++) {
+            result *= i;
+        }
+        return result;
+    }
 
     public static void printPermutations(int n) {
         Scanner scanner = new Scanner(System.in);
@@ -42,25 +49,17 @@ public class Anagrammer {
 
     }
 
-    public static void permuteAllAnagrams(String string, String prefix) {
-        int length = string.length();
-        if (length == 0) {
-            System.out.println(prefix);
-        } else {
-            for (int i = 0; i < length; i++) {
-                String newPrefix = prefix + string.charAt(i);
-                String newString = string.substring(0, i) + string.substring(i + 1, length);
-                permuteAllAnagrams(newString, newPrefix);
-            }
-        }
-    }
-
     public static void printAllPermutations() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter a word: ");
         String word = scanner.nextLine();
+        int n = factorial(word.length());
+        String[] anagrams = new String[n];
 
-        permuteAllAnagrams(word, "");
+        permute(word, "", anagrams);
+        for (int i = 0; i < n; i++) {
+            System.out.println(anagrams[i].substring(0, 1).toUpperCase() + anagrams[i].substring(1));
+        }
 
 
     }
